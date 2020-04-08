@@ -10,9 +10,7 @@ const fetchPokemon = () => {
         pokemon['name'] = data.name;
         pokemon['id'] = data.id;
         pokemon['image'] = data.sprites['front_default'];
-        data.types.foreach((type => {
-          pokemon['type'] = pokemon['type'] + ", " + type.name
-        });
+        pokemon['type'] = data.types.map(type => )
         console.log(pokemon);
     });
 };
