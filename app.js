@@ -9,6 +9,7 @@ const fetchPokemon = async () => {
   => ({
       name: data.name,
       id = index + 1,
+
   })
   )
 };
