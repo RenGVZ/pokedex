@@ -13,7 +13,12 @@ body {
   text-align: center;
 }
 
-.card-image :hover {
+.card-image {
+  height: 180px;
+}
+
+
+.card-image:hover {
   animation: bounce .5s linear;
 }
 
@@ -45,10 +50,6 @@ body {
   margin-top: 5px;
 }
 
-.card-image {
-  height: 180px;
-}
-
 #pokedex {
   padding-inline-start: 0;
   display: grid;
@@ -65,4 +66,40 @@ h1 {
   text-transform: uppercase;
   text-align: center;
   font-size: 40px;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: #f4f4f4;
+  opacity: 0.95;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#closeBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+button {
+  background: orangered;
+  color: white;
+  padding: 10px 20px;
+  font-size: 19px;
+  border-radius: 4px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0px 1px 2px darkred;
+  transform: translateY(-1px);
 }

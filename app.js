@@ -1,9 +1,11 @@
 const pokedex = document.getElementById('pokedex');
-
+const pokeCache = {};
 const fetchPokemon = async () => {
-  const url = `https://pokeapi.co/api/v2/pokemon?/limit=150`;
+  const url = `https://pokeapi.co/api/v2/pokemon?limit=151`;
   const res = await fetch(url);
+  console.log(res);
   const data = await res.json();
+  console.log(data);
   const pokemon = data.results.map((result, index) => 
   ({
       ...result,
@@ -26,33 +28,42 @@ const displayPokemon = (pokemon) => {
 };
 
 const selectPokemon = async (id) => {
+  if (!pokeCache[id]) {
   const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
   const res = await fetch(url);
   const pokeman = await res.json();
+  pokeCache[id] = pokeman;
   displayPopup(pokeman);
+}
+displayPopup(pokeCache[id]);
 };
 
 const displayPopup = (pokeman) => {
-  console.log(pokeman);
   const type = pokeman.types.map((type) => 
-    type.type.name).join(" and ");
-    console.log(type.toUpperCase());
+    type.type.name).join(", ");
+    const image = pokeman.sprites['front_default'];
     const htmlString = `
     <div class="popup">
       <button id="closeBtn" 
         onclick="closePopup()">Close
       </button>
         <div class="card">
-          <img class="card-image" src="${pokeman.image}" />
+          <img class="card-image" src="${image}" />
           <h2 class="card-title">${pokeman.id}. ${pokeman.name}
           </h2>
-          <p><small>Height: ${pokeman.height}</small> |
-            <small>Weight: ${pokeman.weight}</small>
-            <small>Type: ${type.toUpperCase()}</small>
+          <p><small>Height: </small>${pokeman.height} 
+          | <small>Weight: </small>${pokeman.weight}
+          | <small>Type: </small>${type}
         </div>
     </div>
     `
+    pokedex.innerHTML = htmlString + pokedex.innerHTML;
     console.log(htmlString);
 };
+
+const closePopup = () => {
+  const popup = document.querySelector('.popup');
+  popup.parentElement.removeChild(popup);
+}
 
 fetchPokemon();
